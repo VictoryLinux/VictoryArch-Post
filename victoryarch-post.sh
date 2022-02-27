@@ -174,8 +174,8 @@ if [ $(whoami) = "root"  ];
 then
     useradd -m -G wheel,libvirt -s /bin/bash $username 
 	passwd $username
-	cp -R /root/VictoryArchLite /home/$username/
-    chown -R $username: /home/$username/VictoryArchLite
+	cp -R /root/VictoryArch-Post /home/$username/
+    chown -R $username: /home/$username/VictoryArch-Post
 	read -p "Please name your machine:" nameofmachine
 	echo $nameofmachine > /etc/hostname
 else
@@ -331,11 +331,11 @@ done
 }
 
 function aur() {
-echo "CLONING: YAY"
-cd ~
-git clone "https://aur.archlinux.org/yay.git"
-cd ${HOME}/yay
-makepkg -si --noconfirm
+#echo "CLONING: YAY"
+#cd ~
+#git clone "https://aur.archlinux.org/yay.git"
+#cd ${HOME}/yay
+#makepkg -si --noconfirm
 cd ~
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/powerlevel10k
 
@@ -369,6 +369,7 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/powerleve
 'popsicle-git'
 'ocs-url' # install packages from websites
 'onlyoffice-bin'
+'snap-pac'
 'stacer-bin'
 'timeshift'
 'timeshift-autosnap'
@@ -378,7 +379,6 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/powerleve
 'ttf-roboto'
 'xcursor-breeze'
 'zoom' # video conferences
-'snap-pac'
 )
 
 for PKG in "${PKGS[@]}"; do
@@ -409,7 +409,7 @@ check_exit_status
 
 #GRUB
 function grub() {
-cd $HOME/VictoryArchLite/grub/
+cd $HOME/VictoryArch-Post/grub/
 sudo ./install.sh
 
 check_exit_status
@@ -418,9 +418,9 @@ check_exit_status
 #CONFIGS
 function configs() {
 export PATH=$PATH:~/.local/bin
-cp -r $HOME/VictoryArchLite/configs/* $HOME/.config/
+cp -r $HOME/VictoryArch-Post/configs/* $HOME/.config/
 echo
-sudo mv -f $HOME/VictoryArchLite/configs/pacman.conf /etc/
+sudo mv -f $HOME/VictoryArch-Post/configs/pacman.conf /etc/
 echo
 mv $HOME/.config/bashrc $HOME/.config/.bashrc
 mv $HOME/.config/.bashrc $HOME
@@ -428,13 +428,14 @@ echo
 mv $HOME/.config/face $HOME/.config/.face
 mv $HOME/.config/.face $HOME
 
-mv $HOME/.config/smb.conf $HOME /etc/samba/
+#mv $HOME/.config/smb.conf $HOME /etc/samba/
 
 check_exit_status
 }
 
 #APPEARANCE
 function appearance() {
+cd cd $HOME/VictoryArch-Post/
 git clone https://github.com/daniruiz/flat-remix
 git clone https://github.com/daniruiz/flat-remix-gtk
 #mkdir -p ~/.icons && mkdir -p ~/.themes
@@ -475,7 +476,7 @@ function leave() {
 
 	echo
 	echo "---------------------------------------"
-	echo "---- ArcoLinux has been installed! ----"
+	echo "---- VictoryLinux has been installed! ----"
 	echo "---------------------------------------"
 	echo
 	echo "This PC may need to be restarted"
